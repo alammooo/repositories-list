@@ -24,30 +24,4 @@ export default interface Repository {
   default_branch: string
 }
 
-export const initialState: Repository[] = [
-  {
-    id: 0,
-    name: "",
-    full_name: "",
-    owner: {
-      login: "",
-      avatar_url: "",
-      gravatar_id: "",
-      html_url: "",
-      followers_url: "",
-      repos_url: "",
-      type: "",
-    },
-    html_url: "",
-    description: "",
-    fork: false,
-    created_at: "",
-    updated_at: "",
-    pushed_at: "",
-    stargazers_count: 0,
-    watchers_count: 0,
-    forks_count: 0,
-    visibility: "",
-    default_branch: "",
-  },
-]
+
