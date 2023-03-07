@@ -1,8 +1,9 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { BsStarFill } from "react-icons/bs"
+import { BsStar } from "react-icons/bs"
 import { BiGitRepoForked } from "react-icons/bi"
+import { VscEye } from "react-icons/vsc"
 
 export default function RepoCards() {
   const dispatch = useDispatch()
@@ -52,42 +53,50 @@ export default function RepoCards() {
               </h1>
             </div>
           </div>
-          <div className="flex gap-3 mt-3 items-center">
-            <h1 className="text-xl font-medium">{data.name}</h1>
-            <h1 className="text-sm capitalize text-center inline-flex text-zinc-50 rounded-md px-2 py-1 bg-blue-500">
-              {data.visibility}
-            </h1>
-            <h1 className="text-sm text-emerald-500">{data.size} kB</h1>
+          <div>
+            <div className="flex gap-4 mt-3 items-center">
+              <h1 className="text-2xl font-medium">{data.name}</h1>
+              <h1 className="text-sm capitalize text-center block text-zinc-50 rounded-md px-2 py-1 bg-blue-500 max-h-7">
+                {data.visibility}
+              </h1>
+              <h1 className="text-sm capitalize text-center block text-zinc-50 rounded-md px-2 py-1 bg-emerald-500 max-h-7">
+                {data.size} kB
+              </h1>
+            </div>
+            <a
+              href={data.html_url}
+              target="_blank"
+              className="text-sm mt-1 font-light text-zinc-400 underline">
+              {data.full_name}
+            </a>
           </div>
-          <a
-            href={data.html_url}
-            target="_blank"
-            className="text-sm mt-1 font-light text-zinc-400 underline">
-            {data.full_name}
-          </a>
 
-          <div className="flex mt-4 gap-4 justify-center">
-            <h1 className=" flex gap-2 items-center">
+          <hr className="w-full border-black mx-auto mt-3" />
+
+          <div className="flex mt-3 gap-4 justify-center">
+            <h1 className="font-medium flex gap-2 items-center">
               <span>
-                <BsStarFill className="fill-yellow-200 w-5 h-5" />
+                <BsStar className="fill-zinc-500 w-5 h-5" />
               </span>
               {data.stargazers_count}
             </h1>
-            <h1 className=" flex gap-2 items-center">
+            <h1 className="font-medium flex gap-2 items-center">
               <span>
-                <BiGitRepoForked className="fill-zinc-900 w-5 h-5" />
+                <BiGitRepoForked className="fill-zinc-500 w-5 h-5" />
               </span>
-              {data.watchers}
+              {data.forks_count}
             </h1>
-            <h1 className=" flex gap-2 items-center ">
+            <h1 className="font-medium flex gap-2 items-center ">
               <span>
-                <BsStarFill className="w-5 h-5" />
+                <VscEye className="fill-zinc-500 w-5 h-5" />
               </span>
-              {data.stargazers_count}
+              {data.watchers_count}
             </h1>
           </div>
-          <h1>Created at : </h1>
-          <h1>Updated at : </h1>
+          <div>
+            <h1 className="text-lg">License : </h1>
+            <h1>Updated at : </h1>
+          </div>
         </main>
       ))}
     </>
