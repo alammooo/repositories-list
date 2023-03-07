@@ -1,10 +1,22 @@
 import { Inter } from "next/font/google"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
+import {
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactFragment,
+  ReactPortal,
+  useEffect,
+} from "react"
 const myArray = Array.from({ length: 30 }, (_, i) => i + 1)
 
 export default function Home() {
   const dispatch = useDispatch()
+  const { repository } = useSelector((state: any) => state)
+
+  useEffect(() => {
+    console.log(repository)
+  }, [repository])
 
   return (
     <main className="container flex flex-col gap-10 mx-auto mt-16">
@@ -19,6 +31,8 @@ export default function Home() {
         Providing list of users's Github Repository, showcasing with interactive
         and extraodinary cards
       </h1>
+
+      <pre></pre>
 
       <div className="grid grid-cols-3 mx-auto gap-7">
         {myArray.map((e, i) => (

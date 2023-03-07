@@ -49,13 +49,13 @@ function repoReducer(state = initialState, action: any) {
     case "FETCH_REPOS":
       return {
         ...state,
-        repositories: action.payload,
+        repository: action.payload,
       }
     default:
       return state
   }
 }
 
-const rootReducer = combineReducers({ repos: repoReducer })
+const rootReducer = combineReducers({ repoReducer })
 
 export default rootReducer
