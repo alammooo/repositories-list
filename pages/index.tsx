@@ -1,6 +1,11 @@
 import RepoCards from "@/components/RepoCards"
+import { useAppSelector, useAppDispatch } from "@/app/hooks"
+import { useState } from "react"
 
 export default function Home() {
+  const [username, setUsername] = useState("sandhikagalih")
+  const dispatch = useAppDispatch()
+
   return (
     <main className="container flex flex-col gap-10 mx-auto mt-16">
       <h1 className="text-center font-black text-8xl text-zinc-700">
@@ -16,6 +21,12 @@ export default function Home() {
       </h1>
 
       <pre></pre>
+
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
 
       <div className="grid grid-cols-3 mx-auto gap-7">
         <RepoCards />
