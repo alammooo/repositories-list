@@ -11,12 +11,15 @@ const initialState: RepoSlice = {
   status: "idle",
 }
 
-export const fetchRepo = createAsyncThunk("seeder/fetchRepo", async () => {
-  const response = await fetch(
-    "https://api.github.com/users/sandhikagalih/repos?per_page=10&sort=updated"
-  )
-  return response.json()
-})
+export const fetchRepo = createAsyncThunk(
+  "seeder/fetchRepo",
+  async (username: string) => {
+    const response = await fetch(
+      `https://api.github.com/users/${username}/repos?per_page=10&sort=updated`
+    )
+    return response.json()
+  }
+)
 
 export const seederSlice = createSlice({
   name: "repo",

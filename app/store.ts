@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
-import seederReducer from "../features/seeder/seederSlice"
+import seederReducer from "@/features/seeder/seederSlice"
 
 export const store = configureStore({
   reducer: {
