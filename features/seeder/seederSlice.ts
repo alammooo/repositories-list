@@ -14,16 +14,20 @@ const initialState: RepoSlice = {
 export const fetchRepo = createAsyncThunk(
   "seeder/fetchRepo",
   async (username: string) => {
-    const response = await fetch(
-      `https://api.github.com/users/${username}/repos?per_page=12&sort=updated`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `11AYVMQLQ0KyKRfkqk6NkE_y0EpJwbtPCrIZUa2fvKCamEJiTzVVcBSOe2edO3O74SL4OHOAFM523J1Wcs`,
-        },
-      }
-    )
-    return response.json()
+    try {
+      const response = await fetch(
+        `https://api.github.com/users/${username}/repos?per_page=12&sort=updated`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `11AYVMQLQ0KyKRfkqk6NkE_y0EpJwbtPCrIZUa2fvKCamEJiTzVVcBSOe2edO3O74SL4OHOAFM523J1Wcs`,
+          },
+        }
+      )
+      return response.json()
+    } catch (error) {
+      console.log(error)
+    }
   }
 )
 

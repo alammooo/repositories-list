@@ -10,6 +10,7 @@ export default function Home() {
   const [datas, setDatas] = useState([])
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(true)
+  const [noData, setNoData] = useState(false)
 
   useEffect(() => {
     dispatch(fetchRepo(username))
@@ -27,8 +28,13 @@ export default function Home() {
     setUsername(e.target[0].value)
     dispatch(fetchRepo(username))
       .then((res) => {
+        if (res.payload.message === "Not Found") {
+          setNoData(true)
+        }
+        else{
+          setNoData(false)
+        }
         setDatas(res.payload)
-        console.log(res, "THIS IS RES")
       })
       .then(() => {
         setLoading(false)
@@ -55,7 +61,7 @@ export default function Home() {
         <h1 className="text-center text-lg font-medium mb-3">
           Please enter a Github username :
         </h1>
-        <div className="flex gap-3 ">
+        <div className="flex gap-3">
           <input
             className="w-[500px]"
             type="text"
@@ -64,7 +70,7 @@ export default function Home() {
           />
           <button
             type="submit"
-            className="px-5 py-1.5 bg-blue-600 text-white font-medium rounded-md cursor-pointer active:scale-95">
+            className="px-5 py-1.5 bg-zinc-600 text-white text-sm font-medium rounded-sm cursor-pointer active:scale-95 hover:bg-zinc-500 duration-200">
             Submit
           </button>
         </div>
@@ -76,15 +82,18 @@ export default function Home() {
         </div>
       ) : (
         <div className="grid grid-cols-3 mx-auto gap-7">
-          <RepoCards datas={datas} />
+          <RepoCards
+            datas={datas}
+            noData={noData}
+          />
         </div>
       )}
 
       <a
         href="https://github.com/alammooo/repositories-list"
         target="_blank"
-        className="fixed inset-3">
-        <BsGithub className="w-8 h-8 hover:fill-blue-500 duration-200" />
+        className="fixed inset-3 inline w-8 h-8">
+        <BsGithub className="w-full h-full hover:fill-blue-500 duration-200" />
       </a>
     </main>
   )
