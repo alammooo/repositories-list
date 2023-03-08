@@ -2,16 +2,37 @@ import RepoCards from "@/components/RepoCards"
 import { useAppSelector, useAppDispatch } from "@/app/hooks"
 import { useState, useEffect, useRef } from "react"
 import { fetchRepo } from "@/features/seeder/seederSlice"
+import Spinner from "@/components/Spinner"
+import { BsGithub } from "react-icons/bs"
 
 export default function Home() {
-  const [username, setUsername] = useState("alammooo")
+  const [username, setUsername] = useState("sandhikagalih")
+  const [datas, setDatas] = useState([])
   const dispatch = useAppDispatch()
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    dispatch(fetchRepo(username))
+      .then((res) => {
+        setDatas(res.payload)
+      })
+      .then(() => {
+        setLoading(false)
+      })
+  }, [])
 
   function onSubmit(e: any) {
     e.preventDefault()
-    if (username === "") return "sandhikagalih"
-    setUsername(username)
+    setLoading(true)
+    setUsername(e.target[0].value)
     dispatch(fetchRepo(username))
+      .then((res) => {
+        setDatas(res.payload)
+        console.log(res, "THIS IS RES")
+      })
+      .then(() => {
+        setLoading(false)
+      })
   }
 
   return (
@@ -43,15 +64,28 @@ export default function Home() {
           />
           <button
             type="submit"
-            className="px-5 py-1.5 bg-blue-600 text-white font-medium rounded-md">
+            className="px-5 py-1.5 bg-blue-600 text-white font-medium rounded-md cursor-pointer active:scale-95">
             Submit
           </button>
         </div>
       </form>
 
-      <div className="grid grid-cols-3 mx-auto gap-7">
-        <RepoCards />
-      </div>
+      {loading ? (
+        <div className="flex flex-col items-center justify-center">
+          <Spinner />
+        </div>
+      ) : (
+        <div className="grid grid-cols-3 mx-auto gap-7">
+          <RepoCards datas={datas} />
+        </div>
+      )}
+
+      <a
+        href="https://github.com/alammooo/repositories-list"
+        target="_blank"
+        className="fixed inset-3">
+        <BsGithub className="w-8 h-8 hover:fill-blue-500 duration-200" />
+      </a>
     </main>
   )
 }
