@@ -5,7 +5,7 @@
 ### Using redux for state management
 
 - Run command : npm run prod
-
+- Deployment : https://github-repositories-six.vercel.app/
 
 
 ## Getting Started
