@@ -12,6 +12,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [noData, setNoData] = useState(false)
 
+  /* Fetching the data and make loading false */
   useEffect(() => {
     dispatch(fetchRepo(username))
       .then((res) => {
@@ -22,6 +23,7 @@ export default function Home() {
       })
   }, [])
 
+  /* Handling submit to change the username */
   function onSubmit(e: any) {
     e.preventDefault()
     setLoading(true)

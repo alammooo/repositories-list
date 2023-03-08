@@ -1,31 +1,8 @@
 import { BsStar } from "react-icons/bs"
 import { BiGitRepoForked } from "react-icons/bi"
 import { VscEye } from "react-icons/vsc"
-
-interface RepoCards {
-  id: number
-  owner: {
-    login: string
-    avatar_url: string
-    html_url: string
-    type: string
-  }
-  name: string
-  topics: string[]
-  full_name: string
-  html_url: string
-  visibility: string
-  size: number
-  stargazers_count: number
-  forks_count: number
-  watchers_count: number
-  language: string
-  description: string
-  created_at: string
-  pushed_at: string
-  open_issues: number
-  default_branch: string
-}
+import { dateFormatter } from "@/helpers/formatDate"
+import { RepoInterface } from "@/interfaces/Interfaces"
 
 export default function RepoCards({
   datas,
@@ -34,14 +11,6 @@ export default function RepoCards({
   datas: any
   noData: boolean
 }) {
-  const dateFormatter = (date: string) => {
-    const toFormatDate = new Date(date)
-    const year = toFormatDate.getFullYear()
-    const monthName = toFormatDate.getMonth()
-    const day = ("0" + toFormatDate.getDate()).slice(-2)
-    const formattedDate = day + "." + monthName + "." + year
-    return formattedDate
-  }
   if (noData) {
     return (
       <div className="text-center font-medium text-xl text-red col-span-3 text-red-500">
@@ -51,7 +20,7 @@ export default function RepoCards({
   } else {
     return (
       <>
-        {datas.map((data: RepoCards) => (
+        {datas.map((data: RepoInterface) => (
           <main
             className="p-5 shadow-md flex flex-col justify-between h-96 w-96 border border-zinc-300 bg-slate-50 bg-opacity-30 hover:bg-rose-50 duration-300"
             key={data.id}>

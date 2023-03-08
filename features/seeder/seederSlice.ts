@@ -1,16 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState, AppThunk } from "@/app/store"
-
-export interface RepoSlice {
-  value: number
-  status: "idle" | "loading" | "failed"
-}
+import { RepoSlice } from "@/interfaces/Interfaces"
 
 const initialState: RepoSlice = {
   value: 0,
   status: "idle",
 }
 
+/* Fetch data from API using axios and hook createAsyncThunk from redux */
 export const fetchRepo = createAsyncThunk(
   "seeder/fetchRepo",
   async (username: string) => {
