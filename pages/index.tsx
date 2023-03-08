@@ -30,8 +30,7 @@ export default function Home() {
       .then((res) => {
         if (res.payload.message === "Not Found") {
           setNoData(true)
-        }
-        else{
+        } else {
           setNoData(false)
         }
         setDatas(res.payload)
@@ -45,7 +44,7 @@ export default function Home() {
     <main className="container flex flex-col gap-3 md:gap-10 mx-auto mt-16">
       <h1 className="text-center font-black text-3xl md:text-8xl text-zinc-700">
         The.
-        <span className="bg-gradient-to-r from-blue-700 to-sky-400 bg-clip-text animate-pulse-s">
+        <span className="bg-gradient-to-r from-red-700 to-rose-500 bg-clip-text animate-pulse-s">
           Github.
         </span>
         Repositories.
@@ -59,19 +58,19 @@ export default function Home() {
         onSubmit={onSubmit}
         className="mx-auto">
         <h1 className="text-center text-lg font-medium mb-3">
-          Please enter a Github username :
+          Please enter a Github username
         </h1>
         <div className="flex gap-3">
           <input
-            className="md:w-[500px]"
+            className="md:w-[500px] focus:border-red-500 focus:ring-red-500"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <button
             type="submit"
-            className="px-5 py-1.5 bg-zinc-600 text-white text-sm font-medium rounded-sm cursor-pointer active:scale-95 hover:bg-zinc-500 duration-200">
-            Submit
+            className="px-7 bg-rose-600 text-white font-medium rounded-sm cursor-pointer active:scale-95 hover:bg-rose-500 duration-200">
+            Find User!
           </button>
         </div>
       </form>
@@ -93,8 +92,15 @@ export default function Home() {
         href="https://github.com/alammooo/repositories-list"
         target="_blank"
         className="fixed inset-3 inline w-8 h-8">
-        <BsGithub className="w-full h-full hover:fill-blue-500 duration-200" />
+        <BsGithub className="w-full h-full hover:fill-red-500 duration-200" />
       </a>
+
+      <div className="fixed bottom-4 right-4 w-60 hidden 2xl:block">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/id/thumb/c/c4/Telkom_Indonesia_2013.svg/640px-Telkom_Indonesia_2013.svg.png"
+          alt="pt-telkom"
+        />
+      </div>
     </main>
   )
 }

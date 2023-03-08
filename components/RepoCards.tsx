@@ -53,7 +53,7 @@ export default function RepoCards({
       <>
         {datas.map((data: RepoCards) => (
           <main
-            className="p-5 shadow-md flex flex-col justify-between h-96 w-96 border border-zinc-300 bg-slate-50 bg-opacity-30 hover:bg-slate-100 duration-300 "
+            className="p-5 shadow-md flex flex-col justify-between h-96 w-96 border border-zinc-300 bg-slate-50 bg-opacity-30 hover:bg-rose-50 duration-300"
             key={data.id}>
             <div>
               <div className="flex items-center gap-4">
@@ -80,10 +80,10 @@ export default function RepoCards({
                 <div className="flex flex-col gap-1 mt-3">
                   <h1 className="text-xl font-medium">{data.name}</h1>
                   <div className="flex gap-2 text-xs capitalize text-center text-zinc-50">
-                    <h1 className=" block rounded-md px-2 py-0.5 bg-blue-700">
+                    <h1 className=" block rounded-md px-2 py-0.5 bg-red-500">
                       {data.visibility}
                     </h1>
-                    <h1 className="block text-zinc-50 rounded-md px-2 py-0.5 bg-emerald-700">
+                    <h1 className="block text-zinc-50 rounded-md px-2 py-0.5 bg-green-500">
                       {data.size} kB
                     </h1>
                   </div>
