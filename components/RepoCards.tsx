@@ -3,11 +3,11 @@ import { useEffect, useState } from "react"
 import { BsStar } from "react-icons/bs"
 import { BiGitRepoForked } from "react-icons/bi"
 import { VscEye } from "react-icons/vsc"
-import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { fetchData, selectCount } from "@/features/counter/counterSlice"
+import { useAppDispatch } from "@/app/hooks"
+import { fetchRepo } from "@/features/seeder/seederSlice"
 
 export default function RepoCards() {
-  const dateFormatter = (date: any) => {
+  const dateFormatter = (date: string) => {
     const toFormatDate = new Date(date)
     const year = toFormatDate.getFullYear()
     const monthNames = [
@@ -31,30 +31,11 @@ export default function RepoCards() {
     return formattedDate
   }
 
-  const [loading, setLoading] = useState(true)
   const [datas, setDatas] = useState([])
-  const count = useAppSelector(selectCount)
   const dispatch = useAppDispatch()
 
-  
-  // async function handleGetRepository() {
-  //   try {
-  //     const response = await axios.get(
-  //       "https://api.github.com/users/sandhikagalih/repos?per_page=10&sort=updated"
-  //     )
-
-  //     setDatas(response.data)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   handleGetRepository()
-  // }, [])
-
   useEffect(() => {
-    dispatch(fetchData()).then((res) => {
+    dispatch(fetchRepo()).then((res) => {
       setDatas(res.payload)
     })
   }, [])
