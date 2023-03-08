@@ -1,6 +1,7 @@
 import { BsStar } from "react-icons/bs"
 import { BiGitRepoForked } from "react-icons/bi"
 import { VscEye } from "react-icons/vsc"
+import Image from "next/image"
 
 interface RepoCards {
   id: number
@@ -58,7 +59,7 @@ export default function RepoCards({
             <div>
               <div className="flex items-center gap-4">
                 <div className="rounded-full w-12 h-12 overflow-hidden border">
-                  <img
+                  <Image
                     className="w-full h-full object-cover"
                     src={data.owner.avatar_url}
                     alt={data.owner.login}

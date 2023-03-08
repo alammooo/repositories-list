@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { fetchRepo } from "@/features/seeder/seederSlice"
 import Spinner from "@/components/Spinner"
 import { BsGithub } from "react-icons/bs"
+import Image from "next/image"
 
 export default function Home() {
   const [username, setUsername] = useState("sandhikagalih")
@@ -96,7 +97,7 @@ export default function Home() {
       </a>
 
       <div className="fixed bottom-4 right-4 w-60 hidden 2xl:block">
-        <img
+        <Image
           src="https://upload.wikimedia.org/wikipedia/id/thumb/c/c4/Telkom_Indonesia_2013.svg/640px-Telkom_Indonesia_2013.svg.png"
           alt="pt-telkom"
         />
