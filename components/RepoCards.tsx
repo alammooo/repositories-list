@@ -1,40 +1,69 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { BsStar } from "react-icons/bs"
 import { BiGitRepoForked } from "react-icons/bi"
 import { VscEye } from "react-icons/vsc"
+import { useAppDispatch, useAppSelector } from "@/app/hooks"
+import { fetchData, selectCount } from "@/features/counter/counterSlice"
 
 export default function RepoCards() {
-  const dispatch = useDispatch()
-  const [datas, setDatas] = useState([])
-  const { repository } = useSelector((state: any) => state)
-
-  useEffect(() => {
-    console.log(repository)
-  }, [repository])
-
-  async function handleGetRepository() {
-    try {
-      const response = await axios.get(
-        "https://api.github.com/users/sandhikagalih/repos?per_page=10&sort=updated"
-      )
-
-      setDatas(response.data)
-    } catch (error) {
-      console.log(error)
-    }
+  const dateFormatter = (date: any) => {
+    const toFormatDate = new Date(date)
+    const year = toFormatDate.getFullYear()
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ]
+    const monthIndex = toFormatDate.getMonth()
+    const monthName = monthNames[monthIndex]
+    const day = ("0" + toFormatDate.getDate()).slice(-2)
+    const formattedDate = day + " " + monthName + " " + year
+    return formattedDate
   }
 
+  const [loading, setLoading] = useState(true)
+  const [datas, setDatas] = useState([])
+  const count = useAppSelector(selectCount)
+  const dispatch = useAppDispatch()
+
+  
+  // async function handleGetRepository() {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://api.github.com/users/sandhikagalih/repos?per_page=10&sort=updated"
+  //     )
+
+  //     setDatas(response.data)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   handleGetRepository()
+  // }, [])
+
   useEffect(() => {
-    handleGetRepository()
+    dispatch(fetchData()).then((res) => {
+      setDatas(res.payload)
+    })
   }, [])
 
   return (
     <>
       {datas.map((data: any) => (
         <main
-          className="p-5 shadow-md h-96 w-96 border border-zinc-300"
+          className="p-5 shadow-md h-96 w-96 border border-zinc-300 bg-slate-50 bg-opacity-30"
           key={data.id}>
           <div className="flex items-center gap-4">
             <div className="rounded-full w-12 h-12 overflow-hidden border">
@@ -94,8 +123,22 @@ export default function RepoCards() {
             </h1>
           </div>
           <div>
-            <h1 className="text-lg">License : </h1>
-            <h1>Updated at : </h1>
+            <h1 className="mt-3 text-zinc-700">{data.description}</h1>
+          </div>
+          <div className="mt-2">
+            <h1 className="flex gap-3 items-center font-medium">
+              Topics :
+              {data.topics.length > 0
+                ? data.topics?.map((el: string) => (
+                    <span className="capitalize bg-blue-500 px-2 py-1 rounded-md text-white">
+                      {el}
+                    </span>
+                  ))
+                : " No topics"}
+            </h1>
+          </div>
+          <div className="justify-between flex mt-2">
+            <h1 className="text-sm">{dateFormatter(data.created_at)}</h1>
           </div>
         </main>
       ))}
