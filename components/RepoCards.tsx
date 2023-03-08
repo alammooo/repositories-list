@@ -2,6 +2,31 @@ import { BsStar } from "react-icons/bs"
 import { BiGitRepoForked } from "react-icons/bi"
 import { VscEye } from "react-icons/vsc"
 
+interface RepoCards {
+  id: number
+  owner: {
+    login: string
+    avatar_url: string
+    html_url: string
+    type: string
+  }
+  name: string
+  topics: string[]
+  full_name: string
+  html_url: string
+  visibility: string
+  size: number
+  stargazers_count: number
+  forks_count: number
+  watchers_count: number
+  language: string
+  description: string
+  created_at: string
+  pushed_at: string
+  open_issues: number
+  default_branch: string
+}
+
 export default function RepoCards({
   datas,
   noData,
@@ -14,7 +39,7 @@ export default function RepoCards({
     const year = toFormatDate.getFullYear()
     const monthName = toFormatDate.getMonth()
     const day = ("0" + toFormatDate.getDate()).slice(-2)
-    const formattedDate = day + "-" + monthName + "-" + year
+    const formattedDate = day + "." + monthName + "." + year
     return formattedDate
   }
   if (noData) {
@@ -26,7 +51,7 @@ export default function RepoCards({
   } else {
     return (
       <>
-        {datas.map((data: any) => (
+        {datas.map((data: RepoCards) => (
           <main
             className="p-5 shadow-md flex flex-col h-96 w-96 border border-zinc-300 bg-slate-50 bg-opacity-30 hover:bg-slate-100 duration-300 "
             key={data.id}>
@@ -98,15 +123,36 @@ export default function RepoCards({
                 Topics :
                 {data.topics.length > 0
                   ? data.topics?.map((el: string) => (
-                      <span className="capitalize bg-zinc-900 px-2 py-1 text-xs rounded text-white">
+                      <span className="capitalize bg-zinc-900 px-2 py-1 rounded text-white">
                         {el}
                       </span>
                     ))
                   : " No topics"}
               </h1>
             </div>
-            <div className="justify-between flex mt-2">
-              <h1 className="text-sm">{dateFormatter(data.created_at)}</h1>
+            <div className="mt-1">
+              <h1 className="text-sm">
+                Open issues :{" "}
+                <span className="font-medium">{data.open_issues}</span>
+              </h1>
+              <h1 className="text-sm">
+                Default Branch :{" "}
+                <span className="font-medium">{data.default_branch}</span>
+              </h1>
+            </div>
+            <div className="justify-between flex mt-5">
+              <h1 className="text-sm">
+                Created At :{" "}
+                <span className="font-medium">
+                  {dateFormatter(data.created_at)}
+                </span>
+              </h1>
+              <h1 className="text-sm">
+                Last Push :{" "}
+                <span className="font-medium">
+                  {dateFormatter(data.pushed_at)}
+                </span>
+              </h1>
             </div>
           </main>
         ))}
