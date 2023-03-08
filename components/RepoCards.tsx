@@ -83,7 +83,7 @@ export default function RepoCards({
                     <h1 className=" block rounded-md px-2 py-0.5 bg-red-500">
                       {data.visibility}
                     </h1>
-                    <h1 className="block text-zinc-50 rounded-md px-2 py-0.5 bg-green-500">
+                    <h1 className="block text-zinc-50 rounded-md px-2 py-0.5 bg-blue-500">
                       {data.size} kB
                     </h1>
                   </div>
