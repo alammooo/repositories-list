@@ -1,22 +1,45 @@
-import { Inter } from "next/font/google"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactFragment,
-  ReactPortal,
-  useEffect,
-} from "react"
-const myArray = Array.from({ length: 30 }, (_, i) => i + 1)
+import RepoCards from "@/components/RepoCards"
+import { useAppSelector, useAppDispatch } from "@/app/hooks"
+import { useState, useEffect, useRef } from "react"
+import { fetchRepo } from "@/features/seeder/seederSlice"
+import Spinner from "@/components/Spinner"
+import { BsGithub } from "react-icons/bs"
 
 export default function Home() {
-  const dispatch = useDispatch()
-  const { repository } = useSelector((state: any) => state)
+  const [username, setUsername] = useState("sandhikagalih")
+  const [datas, setDatas] = useState([])
+  const dispatch = useAppDispatch()
+  const [loading, setLoading] = useState(true)
+  const [noData, setNoData] = useState(false)
 
   useEffect(() => {
-    console.log(repository)
-  }, [repository])
+    dispatch(fetchRepo(username))
+      .then((res) => {
+        setDatas(res.payload)
+      })
+      .then(() => {
+        setLoading(false)
+      })
+  }, [])
+
+  function onSubmit(e: any) {
+    e.preventDefault()
+    setLoading(true)
+    setUsername(e.target[0].value)
+    dispatch(fetchRepo(username))
+      .then((res) => {
+        if (res.payload.message === "Not Found") {
+          setNoData(true)
+        }
+        else{
+          setNoData(false)
+        }
+        setDatas(res.payload)
+      })
+      .then(() => {
+        setLoading(false)
+      })
+  }
 
   return (
     <main className="container flex flex-col gap-10 mx-auto mt-16">
@@ -32,17 +55,46 @@ export default function Home() {
         and extraodinary cards
       </h1>
 
-      <pre></pre>
+      <form
+        onSubmit={onSubmit}
+        className="mx-auto">
+        <h1 className="text-center text-lg font-medium mb-3">
+          Please enter a Github username :
+        </h1>
+        <div className="flex gap-3">
+          <input
+            className="w-[500px]"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="px-5 py-1.5 bg-zinc-600 text-white text-sm font-medium rounded-sm cursor-pointer active:scale-95 hover:bg-zinc-500 duration-200">
+            Submit
+          </button>
+        </div>
+      </form>
 
-      <div className="grid grid-cols-3 mx-auto gap-7">
-        {myArray.map((e, i) => (
-          <div
-            className="p-3 shadow-md h-96 w-96 border border-zinc-300"
-            key={i}>
-            <h1>Test cards</h1>
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex flex-col items-center justify-center">
+          <Spinner />
+        </div>
+      ) : (
+        <div className="grid grid-cols-3 mx-auto gap-7">
+          <RepoCards
+            datas={datas}
+            noData={noData}
+          />
+        </div>
+      )}
+
+      <a
+        href="https://github.com/alammooo/repositories-list"
+        target="_blank"
+        className="fixed inset-3 inline w-8 h-8">
+        <BsGithub className="w-full h-full hover:fill-blue-500 duration-200" />
+      </a>
     </main>
   )
 }
