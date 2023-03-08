@@ -39,9 +39,12 @@ export default function RepoCards({
                 />
               </div>
               <div>
-                <h1 className="text-zinc-700 font-bold text-lg">
+                <a
+                  href={data.owner.html_url}
+                  target="_blank"
+                  className="text-zinc-700 font-bold text-lg">
                   {data.owner.login}
-                </h1>
+                </a>
                 <h1 className="text-zinc-600 rounded-md text-sm">
                   {data.owner.type}
                 </h1>
