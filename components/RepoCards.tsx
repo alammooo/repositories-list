@@ -105,7 +105,7 @@ export default function RepoCards({
                 </div>
               </div>
             </main>
-            <div className="grid grid-cols-2 justify-between text-sm bg-zinc-700 p-3 text-white">
+            <div className="grid grid-cols-2 justify-between text-sm bg-zinc-700 px-5 py-3 text-white">
               <h1 className="">
                 Open issues :{" "}
                 <span className="font-medium">{data.open_issues}</span>
