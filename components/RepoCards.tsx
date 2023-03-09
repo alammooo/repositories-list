@@ -108,7 +108,7 @@ export default function RepoCards({
                 Open issues :{" "}
                 <span className="font-medium">{data.open_issues}</span>
               </h1>
-              <h1 className="">
+              <h1 className="text-left">
                 Created :{" "}
                 <span className="font-medium">
                   {dateFormatter(data.created_at)}
@@ -118,7 +118,7 @@ export default function RepoCards({
                 Branch :{" "}
                 <span className="font-medium">{data.default_branch}</span>
               </h1>
-              <h1 className="">
+              <h1 className="text-left">
                 Last Push :{" "}
                 <span className="font-medium">
                   {dateFormatter(data.pushed_at)}
