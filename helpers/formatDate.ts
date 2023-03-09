@@ -4,6 +4,6 @@ export const dateFormatter = (date: string) => {
   const year = toFormatDate.getFullYear()
   const monthName = toFormatDate.getMonth()
   const day = ("0" + toFormatDate.getDate()).slice(-2)
-  const formattedDate = day + "." + monthName + "." + year
+  const formattedDate = day + "-" + monthName + "-" + year
   return formattedDate
 }
